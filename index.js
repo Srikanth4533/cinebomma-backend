@@ -1,10 +1,10 @@
 const express = require("express")
 const cors = require("cors")
 const bodyParser = require("body-parser")
-const { PORT } = require("./config/serverConfig")
-const connectDB = require("./config/db")
+const { PORT } = require("./src/config/serverConfig")
+const connectDB = require("./src/config/db")
 
-const apiRoutes = require("./routes/index")
+const apiRoutes = require("./src/routes/index")
 
 connectDB()
 
