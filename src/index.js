@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const bodyParser = require("body-parser")
 const { PORT } = require("./config/serverConfig")
 const connectDB = require("./config/db")
@@ -8,6 +9,8 @@ const apiRoutes = require("./routes/index")
 connectDB()
 
 const app = express()
+
+app.use(cors())
 
 
 

@@ -6,6 +6,7 @@ const movieService = new MovieService()
 
 const create = async (req, res) => {
     try {
+        console.log(req.body)
         console.log(req.file.filename)
         if(!req.file) {
             return res.status(400).json({
