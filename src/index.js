@@ -20,6 +20,10 @@ const setupAndStart = () => {
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
 
+    app.get("/", (req, res) => {
+        res.send("Welcome Home!")
+    })
+
     app.use('/api', apiRoutes)
 
     app.listen(PORT, () => {
