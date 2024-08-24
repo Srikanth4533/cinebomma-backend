@@ -6,8 +6,6 @@ const movieService = new MovieService()
 
 const create = async (req, res) => {
     try {
-        console.log(req.body)
-        console.log(req.file.filename)
         if(!req.file) {
             return res.status(400).json({
                 success: false,
@@ -17,7 +15,6 @@ const create = async (req, res) => {
             })
         }
         let result = await uploadFile(req.file.path)
-        console.log(result)
         req.body.image_url = result.secure_url
         const { title, release_year, genres, cast, director, trailer, download_link, image_url, language, description } = req.body
         const movie = await movieService.create({ title, release_year, genres, cast, director, trailer, download_link, image_url, language, description })
@@ -61,6 +58,16 @@ const getById = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
+        if(req.query?.language) {
+            const  { language } = req.query
+            const movies = await movieService.findByLanguage(language)
+            return res.status(200).json({
+                success: true,
+                data: movies,
+                message: `Successfully fetched all movies by language : ${language}`,
+                err: {}
+            })
+        }
         const movies = await movieService.getAll()
         return res.status(200).json({
             success: true,
@@ -79,8 +86,30 @@ const getAll = async (req, res) => {
     }
 }
 
+const getByLanguage = async (req, res) => {
+    try {
+        const {language} = req.query
+        const movies = await movieService.findByLanguage(language)
+        return res.status(200).json({
+            success: true,
+            data: movies,
+            message: `Successfully fetched all movies by language : ${language}`,
+            err: {}
+        })
+    } catch (error) {
+        console.log(`Something went wrong in controller layer`)
+        return res.status(400).json({
+            success: false,
+            data: {},
+            message: "Something went wrong",
+            err: error
+        })
+    }
+}
+
 module.exports = {
     create,
     getById,
-    getAll
+    getAll,
+    getByLanguage
 }

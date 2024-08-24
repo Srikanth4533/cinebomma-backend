@@ -28,7 +28,17 @@ class MovieService {
 
     async getAll() {
         try {
-            const movies = await this.movieRepository.getAll({})
+            const movies = await this.movieRepository.getAll()
+            return movies
+        } catch (error) {
+            console.log(error)
+            console.log(`Something went wrong in the service layer`)
+        }
+    }
+
+    async findByLanguage(language) {
+        try {
+            const movies = await this.movieRepository.findByLanguage(language)
             return movies
         } catch (error) {
             console.log(error)

@@ -23,6 +23,18 @@ class MovieRepository {
         }
     }
 
+    async findByLanguage(language) {
+        try {
+            const movies = await Movie.find({
+                    language: language
+            })
+            return movies
+        } catch (error) {
+            console.log(error)
+            console.log('Something went wrong in repository layer')
+        }
+    }
+
     async getAll() {
         try {
             const movies = await Movie.find({})

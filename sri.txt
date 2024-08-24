@@ -1,0 +1,9 @@
+async getAll(offSet, limit) {
+    try {
+      const tweet = await Tweet.find().skip(offSet).limit(limit);
+      return tweet;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
